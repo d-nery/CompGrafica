@@ -42,7 +42,7 @@ void APotter::Tick(float DeltaTime)
 
 	FVector NewLocation = OurVisibleComponent->GetRelativeTransform().GetTranslation();
 	float currentRotation = OurVisibleComponent->GetRelativeTransform().GetRotation().Rotator().Roll;
-	float step = 0.8f;
+	float step = 1.0f;
 
 	if (bMovingUp) {
 		currentRotation = FMath::Clamp(currentRotation + step, -20.0f, 20.0f);
@@ -52,10 +52,10 @@ void APotter::Tick(float DeltaTime)
 	}
 	else {
 		if (currentRotation > 0) {
-			currentRotation = FMath::Clamp(currentRotation - step, 0.0f, 20.0f);
+			currentRotation = FMath::Clamp(currentRotation - step*2, 0.0f, 20.0f);
 		}
 		else if (currentRotation < 0) {
-			currentRotation = FMath::Clamp(currentRotation + step, -20.0f, 0.0f);
+			currentRotation = FMath::Clamp(currentRotation + step*2, -20.0f, 0.0f);
 		}
 	}
 
@@ -75,7 +75,7 @@ void APotter::Tick(float DeltaTime)
 
 	SetActorRotation(NewRotation);
 	OurVisibleComponent->SetRelativeLocation(NewLocation);
-	OurVisibleComponent->SetRelativeRotation(FRotator(0.0f, 0.0f, currentRotation));
+	OurVisibleComponent->SetRelativeRotation(FRotator(0.0f, 180.0f, currentRotation));
 }
 
 // Called to bind functionality to input
