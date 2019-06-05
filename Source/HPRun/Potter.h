@@ -54,6 +54,7 @@ public:
 	FVector CurrentVelocity;
 	bool bMovingUp;
 	bool bMovingDown;
+	bool facingLeft;
 
 	float angle_axis;
 };

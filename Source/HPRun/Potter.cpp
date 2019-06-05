@@ -9,6 +9,7 @@ APotter::APotter()
 {
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+	facingLeft = false;
 
 	AutoPossessPlayer = EAutoReceiveInput::Player0;
 
@@ -42,12 +43,13 @@ void APotter::Tick(float DeltaTime)
 
 	FVector NewLocation = OurVisibleComponent->GetRelativeTransform().GetTranslation();
 	float currentRotation = OurVisibleComponent->GetRelativeTransform().GetRotation().Rotator().Roll;
-	float step = 1.0f;
+	float currentRotationLR = OurVisibleComponent->GetRelativeTransform().GetRotation().Rotator().Yaw;
+	float step = 1.5f;
 
-	if (bMovingUp) {
+	if (bMovingDown) {
 		currentRotation = FMath::Clamp(currentRotation + step, -20.0f, 20.0f);
 	}
-	else if (bMovingDown) {
+	else if (bMovingUp) {
 		currentRotation = FMath::Clamp(currentRotation - step, -20.0f, 20.0f);
 	}
 	else {
@@ -57,6 +59,13 @@ void APotter::Tick(float DeltaTime)
 		else if (currentRotation < 0) {
 			currentRotation = FMath::Clamp(currentRotation + step*2, -20.0f, 0.0f);
 		}
+	}
+
+	if (facingLeft) {
+		currentRotationLR = FMath::Clamp(currentRotationLR + step*10.0f, 0.0f, 179.0f);
+	}
+	else {
+		currentRotationLR = FMath::Clamp(currentRotationLR - step*10.0f, 0.0f, 179.0f);
 	}
 
 	angleAxis += DeltaTime * multiplier * CurrentVelocity.Y * speed;
@@ -75,7 +84,7 @@ void APotter::Tick(float DeltaTime)
 
 	SetActorRotation(NewRotation);
 	OurVisibleComponent->SetRelativeLocation(NewLocation);
-	OurVisibleComponent->SetRelativeRotation(FRotator(0.0f, 180.0f, currentRotation));
+	OurVisibleComponent->SetRelativeRotation(FRotator(0.0f, currentRotationLR, currentRotation));
 }
 
 // Called to bind functionality to input
@@ -114,6 +123,10 @@ void APotter::Move_YAxis(float AxisValue)
 {
 	// Move at 100 units per second right or left
 	CurrentVelocity.Y = FMath::Clamp(AxisValue, -1.0f, 1.0f);
+
+	facingLeft = CurrentVelocity.Y < 0 ? false :
+		CurrentVelocity.Y > 0 ? true :
+		facingLeft;
 }
 
 void APotter::StartGrowing()
