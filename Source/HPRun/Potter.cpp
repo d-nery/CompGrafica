@@ -26,6 +26,14 @@ APotter::APotter()
 	dimensions = FVector(10, 0, 0);
 	axisVector = FVector(0, 0, 1);
 	multiplier = 50.f;
+	
+	TriggerCapsule = CreateDefaultSubobject<UCapsuleComponent>(TEXT("Trigger Capsule"));
+	TriggerCapsule->InitCapsuleSize(5.5, 9.f);
+	TriggerCapsule->SetCollisionProfileName(TEXT("Trigger"));
+	TriggerCapsule->SetupAttachment(OurVisibleComponent);
+
+	TriggerCapsule->OnComponentBeginOverlap.AddDynamic(this, &APotter::OnOverlapBegin);
+	TriggerCapsule->OnComponentEndOverlap.AddDynamic(this, &APotter::OnOverlapEnd);
 }
 
 // Called when the game starts or when spawned
@@ -124,4 +132,23 @@ void APotter::StartGrowing()
 void APotter::StopGrowing()
 {
 	speed = FMath::Clamp(speed - 1, 1.0f, 15.0f);
+}
+
+void APotter::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	if (OtherActor && (OtherActor != this) && OtherComp)
+	{
+		if (GEngine)
+		{
+			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Overlap Begin"));
+		}
+	}
+}
+
+void APotter::OnOverlapEnd(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
+{
+		if (GEngine)
+		{
+			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Overlap End"));
+		}
 }

@@ -4,9 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
-
+#include "GameFramework/Character.h"
 #include "Camera/CameraComponent.h"
-
+#include "Engine.h"
 #include "Potter.generated.h"
 
 UCLASS()
@@ -43,6 +43,19 @@ public:
 	FVector axisVector;
 	UPROPERTY(EditAnywhere, Category = Movement)
 	float multiplier;
+	
+	UPROPERTY(VisibleAnywhere, Category = "Trigger Capsule")
+	class UCapsuleComponent* TriggerCapsule;
+
+	
+	UFUNCTION()
+	void OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+
+	
+	UFUNCTION()
+	void OnOverlapEnd(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
+	
+
 
 	// Input functions
 	void Move_XAxis(float AxisValue);
