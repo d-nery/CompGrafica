@@ -2,7 +2,6 @@
 
 
 #include "Potter.h"
-#include "Camera/CameraComponent.h"
 
 // Sets default values
 APotter::APotter()
@@ -149,12 +148,23 @@ void APotter::StopGrowing()
 
 void APotter::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	if (OtherActor && (OtherActor != this) && OtherComp)
+	if(OtherActor != nullptr && OtherActor != this)
 	{
-		if (GEngine)
+		class AEnemy* dementador = Cast<AEnemy>(OtherActor);
+		if (dementador)
 		{
-			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Overlap Begin"));
+			if (GEngine)
+			{
+				GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Overlap Begin Dementador"));
+			}
 		}
+		else {
+			if (GEngine)
+			{
+				GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Overlap Begin"));
+			}
+		}
+		
 	}
 }
 

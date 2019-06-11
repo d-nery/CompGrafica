@@ -7,7 +7,9 @@
 #include "GameFramework/Character.h"
 #include "Camera/CameraComponent.h"
 #include "Engine.h"
+#include "Enemy.h"
 #include "Potter.generated.h"
+
 
 UCLASS()
 class HPRUN_API APotter : public APawn
