@@ -16,16 +16,22 @@ AEnemy::AEnemy()
 	RootComponent = SphereComponent;
 	SphereComponent->InitSphereRadius(1.0f);
 	SphereComponent->SetCollisionProfileName(TEXT("Enemy"));
-
+	RootComponent->SetWorldLocation(FVector(590, -520, 350));
 	SphereVisual = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("VisualRepresentation"));
 	SphereVisual->SetupAttachment(RootComponent);
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SphereVisualAsset(TEXT("/Game/Enemies/Dementor"));
 	if (SphereVisualAsset.Succeeded())
 	{
+		float angleAxis = FMath::RandRange(0.0f, 360.0f);
+		FRotator NewRotation = FRotator(0, angleAxis, 0);
+		float z = FMath::RandRange(-250.0f, 250.0f);
 		SphereVisual->SetStaticMesh(SphereVisualAsset.Object);
-		SphereVisual->SetRelativeLocation(FVector(350.0f, 0.0f, 0.0f));
+		// SphereVisual->SetRelativeLocation(FVector(350.0f, 0.0f, 0.0f));
 		SphereVisual->SetRelativeRotation(FRotator(0.0f, 0.0f, 60.0f));
 		SphereVisual->SetRelativeScale3D(FVector(0.8f));
+
+		SphereVisual->SetRelativeLocation(FVector(-200.0f,0.0f, z));
+		SetActorRotation(NewRotation);
 	}
 
 	OurParticleSystem = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("MovementParticles"));

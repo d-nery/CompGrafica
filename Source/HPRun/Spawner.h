@@ -22,4 +22,22 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	UPROPERTY(EditAnywhere)
+		FVector Location;
+	UPROPERTY(EditAnywhere)
+		FRotator Rotation;
+	int32 CountdownTime;
+
+	UTextRenderComponent* CountdownText;
+
+	void UpdateTimerDisplay();
+
+	void AdvanceTimer();
+
+	void CountdownHasFinished();
+
+	FTimerHandle CountdownTimerHandle;
+
+	int a = 0;
 };
