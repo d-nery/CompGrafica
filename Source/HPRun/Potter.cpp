@@ -157,6 +157,7 @@ void APotter::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AA
 			{
 				GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Overlap Begin Dementador"));
 			}
+			GetWorld()->GetFirstPlayerController()->ConsoleCommand("quit");
 		}
 		else {
 			if (GEngine)
