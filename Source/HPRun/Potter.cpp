@@ -2,6 +2,7 @@
 
 
 #include "Potter.h"
+#include "Spell.h"
 
 // Sets default values
 APotter::APotter()
@@ -105,6 +106,23 @@ void APotter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	// Respond every frame to the values of our two movement axes, "MoveX" and "MoveY".
 	InputComponent->BindAxis("MoveX", this, &APotter::Move_XAxis);
 	InputComponent->BindAxis("MoveY", this, &APotter::Move_YAxis);
+
+	//Shooting
+	InputComponent->BindAction("Shoot", IE_Pressed, this, &APotter::Shooting);
+}
+
+void APotter::Shooting() {
+	FVector Location = OurVisibleComponent->GetComponentLocation();
+	//FVector Location = FVector(0, 0, 0);
+	FRotator Rotation = FRotator(0, 0, 0);
+	FActorSpawnParameters SpawnInfo;
+	//GetWorld()->SpawnActor<ASpell>(Location, Rotation, SpawnInfo);
+	const FTransform SpawnLocAndRot;
+	SpawnLocAndRot.SetLocation(Location);
+	//SpawnLocAndRot.SetRotation(Rotation);
+
+	ASpell* Spell = GetWorld()->SpawnActorDeferred<ASpell> (ASpell::StaticClass(), SpawnLocAndRot);
+	
 }
 
 void APotter::Move_XAxis(float AxisValue)
