@@ -3,14 +3,15 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "GameFramework/Pawn.h"
+#include "GameFramework/Character.h"
 #include "GameFramework/Actor.h"
-
 #include "Particles/ParticleSystemComponent.h"
 #include "Components/SphereComponent.h"
+#include "Engine.h"
+#include "Spell.h"
 #include "Components/StaticMeshComponent.h"
-
 #include "Enemy.generated.h"
-
 UCLASS()
 class HPRUN_API AEnemy : public AActor
 {
@@ -29,11 +30,17 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	UPROPERTY(EditAnywhere)
-	UParticleSystemComponent* OurParticleSystem;
+		UParticleSystemComponent* OurParticleSystem;
 	UPROPERTY(EditAnywhere)
-	USphereComponent* SphereComponent;
+		USphereComponent* SphereComponent;
 	UPROPERTY(EditAnywhere)
-	UStaticMeshComponent* SphereVisual;
+		UStaticMeshComponent* SphereVisual;
 	UPROPERTY(EditAnywhere)
-	float rotSpeed;
+		float rotSpeed;
+
+	UPROPERTY(VisibleAnywhere, Category = "Enemy Capsule")
+		class UCapsuleComponent* EnemyCapsule;
+
+	UFUNCTION()
+		void OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 };

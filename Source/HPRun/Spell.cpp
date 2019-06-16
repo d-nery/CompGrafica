@@ -9,19 +9,19 @@ ASpell::ASpell()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-	rotSpeed = 1.0f;
+	this->rotSpeed = 100.0f;
 
 	SphereComponent = CreateDefaultSubobject<USphereComponent>(TEXT("RootComponent"));
 	FVector location = SphereComponent->GetComponentLocation();
-	SphereComponent->SetWorldLocation(FVector(200, 0, 0));
+	//SphereComponent->SetWorldLocation(FVector(200, 0, 0));
 
 	RootComponent = SphereComponent;
 	SphereComponent->InitSphereRadius(1.0f);
 	SphereComponent->SetCollisionProfileName(TEXT("Spell"));
 
 	
-	//RootComponent->SetWorldLocation(FVector(590, -520, 350));
-	//SphereComponent->SetWorldLocation(FVector(590, -520, 350));
+	RootComponent->SetWorldLocation(FVector(590, -520, 350));
+	SphereComponent->SetWorldLocation(FVector(590, -520, 350));
 	SphereVisual = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("VisualRepresentation"));
 	//SphereVisual->SetWorldLocation(FVector(590, -520, 350));
 	SphereVisual->SetupAttachment(RootComponent);
@@ -52,8 +52,7 @@ ASpell::ASpell()
 		OurParticleSystem->SetTemplate(ParticleAsset.Object);
 	}
 	//FVector Locations = SphereVisual->SetWorldLocation();
-		rotSpeedX = 0;
-		rotSpeedY = 0;
+
 
 }
 
@@ -61,6 +60,8 @@ ASpell::ASpell()
 void ASpell::BeginPlay()
 {
 	Super::BeginPlay();
+
+	GetWorldTimerManager().SetTimer(CountdownTimerHandle, this, &ASpell::AdvanceTimer, 2.0f, true);
 	
 }
 
@@ -68,11 +69,29 @@ void ASpell::BeginPlay()
 void ASpell::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	rotSpeedX = 200 * sin(rotSpeed);
-	rotSpeedY = -200 * cos(rotSpeed);
-	rotSpeed += 0.01;
-	SphereComponent->AddRelativeLocation(FVector(rotSpeedX, rotSpeedY, 0));
-	//SphereComponent->AddRelativeRotation(FRotator(0.0f, DeltaTime * rotSpeed, 0.0f));
+	//rotSpeedX = 200 * sin(rotSpeed);
+	//rotSpeedY = -200 * cos(rotSpeed);
+	//rotSpeed += 0.01;
+	//SphereComponent->AddRelativeLocation(FVector(rotSpeedX, rotSpeedY, 0));
+	SphereComponent->AddRelativeRotation(FRotator(0.0f, DeltaTime * this->rotSpeed, 0.0f));
 
 }
 
+void ASpell::setLocation(FVector Location)
+{
+	SphereVisual->SetWorldLocation(Location);
+	RootComponent->SetWorldLocation(FVector(590, -520, 350));
+}
+
+void ASpell::goToLeft(bool facingLeft)
+{
+	if (!facingLeft)
+	{
+		this->rotSpeed *= -1;
+	}
+}
+
+void ASpell::AdvanceTimer()
+{
+	Destroy();
+}

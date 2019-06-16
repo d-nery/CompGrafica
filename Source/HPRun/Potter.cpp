@@ -113,16 +113,12 @@ void APotter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 void APotter::Shooting() {
 	FVector Location = OurVisibleComponent->GetComponentLocation();
-	//FVector Location = FVector(0, 0, 0);
-	FRotator Rotation = FRotator(0, 0, 0);
-	FActorSpawnParameters SpawnInfo;
-	//GetWorld()->SpawnActor<ASpell>(Location, Rotation, SpawnInfo);
 	const FTransform SpawnLocAndRot;
-	SpawnLocAndRot.SetLocation(Location);
-	//SpawnLocAndRot.SetRotation(Rotation);
 
 	ASpell* Spell = GetWorld()->SpawnActorDeferred<ASpell> (ASpell::StaticClass(), SpawnLocAndRot);
-	
+	Spell->setLocation(Location);
+	Spell->goToLeft(facingLeft);
+	Spell->FinishSpawning(SpawnLocAndRot);
 }
 
 void APotter::Move_XAxis(float AxisValue)
@@ -171,17 +167,7 @@ void APotter::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AA
 		class AEnemy* dementador = Cast<AEnemy>(OtherActor);
 		if (dementador)
 		{
-			if (GEngine)
-			{
-				GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Overlap Begin Dementador"));
-			}
 			GetWorld()->GetFirstPlayerController()->ConsoleCommand("quit");
-		}
-		else {
-			if (GEngine)
-			{
-				GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Overlap Begin"));
-			}
 		}
 		
 	}
@@ -189,8 +175,4 @@ void APotter::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AA
 
 void APotter::OnOverlapEnd(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
-		if (GEngine)
-		{
-			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Overlap End"));
-		}
 }

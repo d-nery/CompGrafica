@@ -4,7 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-
+#include "Runtime/Core/Public/Math/UnrealMathUtility.h"
+#include "Runtime/Engine/Public/TimerManager.h"
 #include "Particles/ParticleSystemComponent.h"
 #include "Components/SphereComponent.h"
 #include "Components/StaticMeshComponent.h"
@@ -36,6 +37,11 @@ public:
 		UStaticMeshComponent* SphereVisual;
 	UPROPERTY(EditAnywhere)
 		float rotSpeed;
-	float rotSpeedX;
-	float rotSpeedY;
+	int32 CountdownTime;
+	void setLocation(FVector Location);
+
+	FTimerHandle CountdownTimerHandle;
+
+	void AdvanceTimer();
+	void goToLeft(bool facingLeft);
 };

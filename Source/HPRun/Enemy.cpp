@@ -8,7 +8,7 @@
 // Sets default values
 AEnemy::AEnemy()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 	rotSpeed = 10.0f;
 
@@ -30,7 +30,7 @@ AEnemy::AEnemy()
 		SphereVisual->SetRelativeRotation(FRotator(0.0f, 0.0f, 60.0f));
 		SphereVisual->SetRelativeScale3D(FVector(0.8f));
 
-		SphereVisual->SetRelativeLocation(FVector(-200.0f,0.0f, z));
+		SphereVisual->SetRelativeLocation(FVector(-200.0f, 0.0f, z));
 		SetActorRotation(NewRotation);
 	}
 
@@ -45,6 +45,13 @@ AEnemy::AEnemy()
 	{
 		OurParticleSystem->SetTemplate(ParticleAsset.Object);
 	}
+
+	EnemyCapsule = CreateDefaultSubobject<UCapsuleComponent>(TEXT("Enemy Capsule"));
+	EnemyCapsule->InitCapsuleSize(5.5, 9.f);
+	EnemyCapsule->SetCollisionProfileName(TEXT("Trigger"));
+	EnemyCapsule->SetupAttachment(SphereVisual);
+
+	EnemyCapsule->OnComponentBeginOverlap.AddDynamic(this, &AEnemy::OnOverlapBegin);
 }
 
 // Called when the game starts or when spawned
@@ -59,5 +66,18 @@ void AEnemy::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	SphereComponent->AddRelativeRotation(FRotator(0.0f, DeltaTime*rotSpeed, 0.0f));
+	SphereComponent->AddRelativeRotation(FRotator(0.0f, DeltaTime * rotSpeed, 0.0f));
+}
+
+void AEnemy::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	if (OtherActor != nullptr && OtherActor != this)
+	{
+		class ASpell* spell = Cast<ASpell>(OtherActor);
+		if (spell)
+		{
+			Destroy();
+		}
+
+	}
 }
