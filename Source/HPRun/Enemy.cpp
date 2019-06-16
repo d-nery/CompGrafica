@@ -14,7 +14,7 @@ AEnemy::AEnemy()
 
 	SphereComponent = CreateDefaultSubobject<USphereComponent>(TEXT("RootComponent"));
 	RootComponent = SphereComponent;
-	SphereComponent->InitSphereRadius(1.0f);
+	SphereComponent->InitSphereRadius(10.0f);
 	SphereComponent->SetCollisionProfileName(TEXT("Enemy"));
 	RootComponent->SetWorldLocation(FVector(590, -520, 350));
 	SphereVisual = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("VisualRepresentation"));
@@ -28,7 +28,7 @@ AEnemy::AEnemy()
 		SphereVisual->SetStaticMesh(SphereVisualAsset.Object);
 		// SphereVisual->SetRelativeLocation(FVector(350.0f, 0.0f, 0.0f));
 		SphereVisual->SetRelativeRotation(FRotator(0.0f, 0.0f, 60.0f));
-		SphereVisual->SetRelativeScale3D(FVector(0.8f));
+		SphereVisual->SetRelativeScale3D(FVector(0.4f));
 
 		SphereVisual->SetRelativeLocation(FVector(-200.0f, 0.0f, z));
 		SetActorRotation(NewRotation);

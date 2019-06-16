@@ -34,7 +34,7 @@ ASpell::ASpell()
 		SphereVisual->SetStaticMesh(SphereVisualAsset.Object);
 		SphereVisual->SetWorldLocation(location);
 		SphereVisual->SetRelativeRotation(FRotator(0.0f, 0.0f, 0.0f));
-		SphereVisual->SetRelativeScale3D(FVector(0.5f));
+		SphereVisual->SetRelativeScale3D(FVector(0.05f));
 
 		//SphereVisual->SetRelativeLocation(FVector(-200.0f, 0.0f, 0.0f));
 		//SetActorRotation(NewRotation);
@@ -44,9 +44,9 @@ ASpell::ASpell()
 	OurParticleSystem->SetupAttachment(SphereVisual);
 	OurParticleSystem->bAutoActivate = true;
 	OurParticleSystem->SetRelativeLocation(FVector(0.0f, 0.0f, 0.0f));
-	OurParticleSystem->SetRelativeScale3D(FVector(0.001f));
+	OurParticleSystem->SetRelativeScale3D(FVector(3.0f));
 	OurParticleSystem->SetRelativeRotation(FRotator(90.0f, 90.0f, 90.0f));
-	static ConstructorHelpers::FObjectFinder<UParticleSystem> ParticleAsset(TEXT("/Game/StarterContent/Particles/P_Smoke.P_Smoke"));
+	static ConstructorHelpers::FObjectFinder<UParticleSystem> ParticleAsset(TEXT("/Game/TS_Fireworks/Particles/PS_TS_FireworksShell"));
 	if (ParticleAsset.Succeeded())
 	{
 		OurParticleSystem->SetTemplate(ParticleAsset.Object);
