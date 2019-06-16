@@ -24,7 +24,7 @@ AEnemy::AEnemy()
 	{
 		float angleAxis = FMath::RandRange(0.0f, 360.0f);
 		FRotator NewRotation = FRotator(0, angleAxis, 0);
-		float z = FMath::RandRange(-250.0f, 250.0f);
+		float z = FMath::RandRange(-200.0f, 200.0f);
 		SphereVisual->SetStaticMesh(SphereVisualAsset.Object);
 		// SphereVisual->SetRelativeLocation(FVector(350.0f, 0.0f, 0.0f));
 		SphereVisual->SetRelativeRotation(FRotator(0.0f, 0.0f, 60.0f));
@@ -47,7 +47,7 @@ AEnemy::AEnemy()
 	}
 
 	EnemyCapsule = CreateDefaultSubobject<UCapsuleComponent>(TEXT("Enemy Capsule"));
-	EnemyCapsule->InitCapsuleSize(5.5, 9.f);
+	EnemyCapsule->InitCapsuleSize(5.5, 130.f);
 	EnemyCapsule->SetCollisionProfileName(TEXT("Trigger"));
 	EnemyCapsule->SetupAttachment(SphereVisual);
 
