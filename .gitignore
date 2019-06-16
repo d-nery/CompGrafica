@@ -79,25 +79,3 @@ Plugins/*/Intermediate/*
 DerivedDataCache/*
 
 # End of https://www.gitignore.io/api/unrealengine
-Content/TS_Fireworks/Maps/FireworksTestMap.umap
-Content/TS_Fireworks/Materials/M_Blank.uasset
-Content/TS_Fireworks/Materials/M_TS_FireworksSimple.uasset
-Content/TS_Fireworks/Materials/M_TS_FireworksSmoke.uasset
-Content/TS_Fireworks/Materials/MI_TS_Fireworks_Solid.uasset
-Content/TS_Fireworks/Meshes/SK_Smiles.uasset
-Content/TS_Fireworks/Meshes/SK_Smiles_PhysicsAsset.uasset
-Content/TS_Fireworks/Meshes/SK_Smiles_Skeleton.uasset
-Content/TS_Fireworks/Meshes/SK_Star.uasset
-Content/TS_Fireworks/Meshes/SK_Star_PhysicsAsset.uasset
-Content/TS_Fireworks/Meshes/SK_Star_Skeleton.uasset
-Content/TS_Fireworks/Meshes/SK_Teapot.uasset
-Content/TS_Fireworks/Meshes/SK_Teapot_Skeleton.uasset
-Content/TS_Fireworks/Meshes/SK_Teapot_PhysicsAsset.uasset
-Content/TS_Fireworks/Meshes/SK_UE4_Logo.uasset
-Content/TS_Fireworks/Meshes/SK_UE4_Logo_PhysicsAsset.uasset
-Content/TS_Fireworks/Meshes/SK_UE4_Logo_Skeleton.uasset
-Content/TS_Fireworks/Particles/PS_TS_Fireworks_Burst_Chrys.uasset
-Content/TS_Fireworks/Particles/PS_TS_Fireworks_Burst_Circle.uasset
-Content/TS_Fireworks/Particles/PS_TS_Fireworks_Burst_Palm.uasset
-Content/TS_Fireworks/Particles/PS_TS_Fireworks_Burst_Shaped.uasset
-Content/TS_Fireworks/Particles/PS_TS_Fireworks_Burst_ShellsWithinShells.uasset
