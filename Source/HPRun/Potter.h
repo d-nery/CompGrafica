@@ -3,6 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Runtime/Core/Public/Math/UnrealMathUtility.h"
+#include "Runtime/Engine/Public/TimerManager.h"
 #include "GameFramework/Pawn.h"
 #include "GameFramework/Character.h"
 #include "Camera/CameraComponent.h"
@@ -72,4 +74,9 @@ public:
 	bool facingLeft;
 
 	float angle_axis;
+
+	FTimerHandle CountdownTimerHandle;
+
+	void AdvanceTimer();
+	bool cooldown;
 };

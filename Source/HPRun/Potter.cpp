@@ -29,7 +29,7 @@ APotter::APotter()
 	multiplier = 50.f;
 	
 	TriggerCapsule = CreateDefaultSubobject<UCapsuleComponent>(TEXT("Trigger Capsule"));
-	TriggerCapsule->InitCapsuleSize(5.5, 9.f);
+	TriggerCapsule->InitCapsuleSize(20, 250.f);
 	TriggerCapsule->SetCollisionProfileName(TEXT("Trigger"));
 	TriggerCapsule->SetupAttachment(OurVisibleComponent);
 
@@ -41,6 +41,8 @@ APotter::APotter()
 void APotter::BeginPlay()
 {
 	Super::BeginPlay();
+
+	GetWorldTimerManager().SetTimer(CountdownTimerHandle, this, &APotter::AdvanceTimer, 1.0f, true);
 	
 }
 
@@ -112,13 +114,17 @@ void APotter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 }
 
 void APotter::Shooting() {
-	FVector Location = OurVisibleComponent->GetComponentLocation();
-	const FTransform SpawnLocAndRot;
+	if (!cooldown)
+	{
+		FVector Location = OurVisibleComponent->GetComponentLocation();
+		const FTransform SpawnLocAndRot;
 
-	ASpell* Spell = GetWorld()->SpawnActorDeferred<ASpell> (ASpell::StaticClass(), SpawnLocAndRot);
-	Spell->setLocation(Location);
-	Spell->goToLeft(facingLeft);
-	Spell->FinishSpawning(SpawnLocAndRot);
+		ASpell* Spell = GetWorld()->SpawnActorDeferred<ASpell>(ASpell::StaticClass(), SpawnLocAndRot);
+		Spell->setLocation(Location);
+		Spell->goToLeft(facingLeft);
+		Spell->FinishSpawning(SpawnLocAndRot);
+		cooldown = true;
+	}
 }
 
 void APotter::Move_XAxis(float AxisValue)
@@ -175,4 +181,9 @@ void APotter::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AA
 
 void APotter::OnOverlapEnd(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
+}
+
+void APotter::AdvanceTimer()
+{
+	cooldown = false;
 }

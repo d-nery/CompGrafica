@@ -47,7 +47,9 @@ AEnemy::AEnemy()
 	}
 
 	EnemyCapsule = CreateDefaultSubobject<UCapsuleComponent>(TEXT("Enemy Capsule"));
-	EnemyCapsule->InitCapsuleSize(5.5, 130.f);
+	EnemyCapsule->InitCapsuleSize(20, 50.f);
+	EnemyCapsule->SetRelativeLocation(FVector(0.0f, -21.0f, 15.0f));
+	EnemyCapsule->SetRelativeRotation(FRotator(-90.0f, -5.0f, -14.0f));
 	EnemyCapsule->SetCollisionProfileName(TEXT("Trigger"));
 	EnemyCapsule->SetupAttachment(SphereVisual);
 
