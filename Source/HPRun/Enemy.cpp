@@ -20,13 +20,13 @@ AEnemy::AEnemy()
 	SphereVisual = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("VisualRepresentation"));
 	SphereVisual->SetupAttachment(RootComponent);
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SphereVisualAsset(TEXT("/Game/Enemies/Dementor"));
+
 	if (SphereVisualAsset.Succeeded())
 	{
 		float angleAxis = FMath::RandRange(0.0f, 360.0f);
 		FRotator NewRotation = FRotator(0, angleAxis, 0);
 		float z = FMath::RandRange(-80.0f, 80.0f);
 		SphereVisual->SetStaticMesh(SphereVisualAsset.Object);
-		// SphereVisual->SetRelativeLocation(FVector(350.0f, 0.0f, 0.0f));
 		SphereVisual->SetRelativeRotation(FRotator(0.0f, 0.0f, 60.0f));
 		SphereVisual->SetRelativeScale3D(FVector(0.4f));
 
@@ -40,6 +40,7 @@ AEnemy::AEnemy()
 	OurParticleSystem->SetRelativeLocation(FVector(0.0f, 0.0f, 0.0f));
 	OurParticleSystem->SetRelativeScale3D(FVector(0.5f));
 	OurParticleSystem->SetRelativeRotation(FRotator(0.0f, 90.0f, 0.0f));
+
 	static ConstructorHelpers::FObjectFinder<UParticleSystem> ParticleAsset(TEXT("/Game/StarterContent/Particles/P_Smoke.P_Smoke"));
 	if (ParticleAsset.Succeeded())
 	{
@@ -81,6 +82,5 @@ void AEnemy::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AAc
 		{
 			Destroy();
 		}
-
 	}
 }

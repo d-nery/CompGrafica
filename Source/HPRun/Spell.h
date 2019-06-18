@@ -30,13 +30,17 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	UPROPERTY(EditAnywhere)
-		UParticleSystemComponent* OurParticleSystem;
+	UParticleSystemComponent* OurParticleSystem;
+	
 	UPROPERTY(EditAnywhere)
-		USphereComponent* SphereComponent;
+	USphereComponent* SphereComponent;
+	
 	UPROPERTY(EditAnywhere)
-		UStaticMeshComponent* SphereVisual;
+	UStaticMeshComponent* SphereVisual;
+	
 	UPROPERTY(EditAnywhere)
-		float rotSpeed;
+	float rotSpeed;
+	
 	int32 CountdownTime;
 	void setLocation(FVector Location);
 

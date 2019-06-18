@@ -41,12 +41,16 @@ public:
 
 	UPROPERTY(EditAnywhere)
 	USceneComponent* OurVisibleComponent;
+	
 	UPROPERTY(EditAnywhere)
 	UCameraComponent* OurCamera;
+	
 	UPROPERTY(EditAnywhere, Category = Movement)
 	FVector dimensions;
+	
 	UPROPERTY(EditAnywhere, Category = Movement)
 	FVector axisVector;
+	
 	UPROPERTY(EditAnywhere, Category = Movement)
 	float multiplier;
 	
@@ -59,8 +63,6 @@ public:
 	UFUNCTION()
 	void OnOverlapEnd(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 	
-
-
 	// Input functions
 	void Move_XAxis(float AxisValue);
 	void Move_YAxis(float AxisValue);

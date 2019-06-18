@@ -13,7 +13,6 @@ ASpell::ASpell()
 
 	SphereComponent = CreateDefaultSubobject<USphereComponent>(TEXT("RootComponent"));
 	FVector location = SphereComponent->GetComponentLocation();
-	//SphereComponent->SetWorldLocation(FVector(200, 0, 0));
 
 	RootComponent = SphereComponent;
 	SphereComponent->InitSphereRadius(1.0f);
@@ -23,21 +22,15 @@ ASpell::ASpell()
 	RootComponent->SetWorldLocation(FVector(590, -520, 350));
 	SphereComponent->SetWorldLocation(FVector(590, -520, 350));
 	SphereVisual = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("VisualRepresentation"));
-	//SphereVisual->SetWorldLocation(FVector(590, -520, 350));
 	SphereVisual->SetupAttachment(RootComponent);
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> SphereVisualAsset(TEXT("/Game/StarterContent/Shapes/Shape_Pipe"));
+
 	if (SphereVisualAsset.Succeeded())
 	{
-		//float angleAxis = FMath::RandRange(0.0f, 360.0f);
-		// FRotator NewRotation = FRotator(0, angleAxis, 0);
-		// float z = FMath::RandRange(-250.0f, 250.0f);
 		SphereVisual->SetStaticMesh(SphereVisualAsset.Object);
 		SphereVisual->SetWorldLocation(location);
 		SphereVisual->SetRelativeRotation(FRotator(0.0f, 0.0f, 0.0f));
 		SphereVisual->SetRelativeScale3D(FVector(0.0005f));
-
-		//SphereVisual->SetRelativeLocation(FVector(-200.0f, 0.0f, 0.0f));
-		//SetActorRotation(NewRotation);
 	}
 
 	OurParticleSystem = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("MovementParticles"));
@@ -51,9 +44,6 @@ ASpell::ASpell()
 	{
 		OurParticleSystem->SetTemplate(ParticleAsset.Object);
 	}
-	//FVector Locations = SphereVisual->SetWorldLocation();
-
-
 }
 
 // Called when the game starts or when spawned
@@ -69,18 +59,14 @@ void ASpell::BeginPlay()
 void ASpell::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	//rotSpeedX = 200 * sin(rotSpeed);
-	//rotSpeedY = -200 * cos(rotSpeed);
-	//rotSpeed += 0.01;
-	//SphereComponent->AddRelativeLocation(FVector(rotSpeedX, rotSpeedY, 0));
-	SphereComponent->AddRelativeRotation(FRotator(0.0f, DeltaTime * this->rotSpeed, 0.0f));
 
+	SphereComponent->AddRelativeRotation(FRotator(0.0f, DeltaTime * this->rotSpeed, 0.0f));
 }
 
 void ASpell::setLocation(FVector Location)
 {
 	SphereVisual->SetWorldLocation(Location);
-	RootComponent->SetWorldLocation(FVector(590, -520, 350) + FVector(0, 0, 500));
+	RootComponent->SetWorldLocation(FVector(590, -520, 350) + FVector(0, 0, 10));
 }
 
 void ASpell::goToLeft(bool facingLeft)

@@ -12,9 +12,6 @@ ASpawner::ASpawner()
 
 	RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("RootComponent"));
 
-	//CountdownText = CreateDefaultSubobject<UTextRenderComponent>(TEXT("CountdownNumber"));
-	//CountdownText->SetHorizontalAlignment(EHTA_Center);
-	//CountdownText->SetWorldSize(150.0f);
 	RootComponent = CountdownText;
 
 	CountdownTime = 3;
@@ -24,11 +21,7 @@ ASpawner::ASpawner()
 void ASpawner::BeginPlay()
 {
 	Super::BeginPlay();
-	
-	//FVector Location(0.0f, 0.0f, 0.0f);
-	//FRotator Rotation(0.0f, 0.0f, 0.0f);
-	//FActorSpawnParameters SpawnInfo;
-	//GetWorld()->SpawnActor<ABlock>(Location, Rotation, SpawnInfo);
+
 	UpdateTimerDisplay();
 	GetWorldTimerManager().SetTimer(CountdownTimerHandle, this, &ASpawner::AdvanceTimer, 1.0f, true);
 }
@@ -48,10 +41,6 @@ void ASpawner::UpdateTimerDisplay()
 void ASpawner::AdvanceTimer()
 {
 	// We're done counting down, so stop running the timer.
-	//GetWorldTimerManager().ClearTimer(CountdownTimerHandle);
-	//Perform any special actions we want to do when the timer ends.
-	//float x = FMath::RandRange(-10.0f, 10.0f)
-	//float y = FMath::RandRange(float -10.0f, float  10.0f)
 	float z = FMath::RandRange(-5000.0f, 5000.0f);
 	Location = FVector(0, 0, 0);
 	Rotation = FRotator(0.0f, 0.0f, 0.0f);

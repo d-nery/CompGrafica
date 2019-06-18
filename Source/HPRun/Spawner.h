@@ -24,9 +24,11 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	UPROPERTY(EditAnywhere)
-		FVector Location;
+	FVector Location;
+	
 	UPROPERTY(EditAnywhere)
-		FRotator Rotation;
+	FRotator Rotation;
+
 	int32 CountdownTime;
 
 	UTextRenderComponent* CountdownText;
