@@ -173,7 +173,7 @@ void APotter::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AA
 		class AEnemy* dementador = Cast<AEnemy>(OtherActor);
 		if (dementador)
 		{
-			GetWorld()->GetFirstPlayerController()->ConsoleCommand("quit");
+			GetWorld()->GetFirstPlayerController()->ConsoleCommand("RestartLevel");
 		}
 		
 	}

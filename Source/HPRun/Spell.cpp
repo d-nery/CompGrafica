@@ -80,7 +80,7 @@ void ASpell::Tick(float DeltaTime)
 void ASpell::setLocation(FVector Location)
 {
 	SphereVisual->SetWorldLocation(Location);
-	RootComponent->SetWorldLocation(FVector(590, -520, 350));
+	RootComponent->SetWorldLocation(FVector(590, -520, 350) + FVector(0, 0, 500));
 }
 
 void ASpell::goToLeft(bool facingLeft)
