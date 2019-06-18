@@ -88,7 +88,7 @@ void APotter::Tick(float DeltaTime)
 	FVector RotateValue = dimensions.RotateAngleAxis(angleAxis, axisVector);
 
 	float newSpeed = NewLocation.Z + DeltaTime * multiplier * CurrentVelocity.X * speed;
-	NewLocation.Z = FMath::Clamp(newSpeed, -100.0f, 100.0f);
+	NewLocation.Z = FMath::Clamp(newSpeed, -80.0f, 80.0f);
 
 	FRotator NewRotation = FRotator(0, angleAxis, 0);
 

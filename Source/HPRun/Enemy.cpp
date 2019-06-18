@@ -14,7 +14,7 @@ AEnemy::AEnemy()
 
 	SphereComponent = CreateDefaultSubobject<USphereComponent>(TEXT("RootComponent"));
 	RootComponent = SphereComponent;
-	SphereComponent->InitSphereRadius(10.0f);
+	SphereComponent->InitSphereRadius(30.0f);
 	SphereComponent->SetCollisionProfileName(TEXT("Enemy"));
 	RootComponent->SetWorldLocation(FVector(590, -520, 350));
 	SphereVisual = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("VisualRepresentation"));
@@ -24,7 +24,7 @@ AEnemy::AEnemy()
 	{
 		float angleAxis = FMath::RandRange(0.0f, 360.0f);
 		FRotator NewRotation = FRotator(0, angleAxis, 0);
-		float z = FMath::RandRange(-200.0f, 200.0f);
+		float z = FMath::RandRange(-80.0f, 80.0f);
 		SphereVisual->SetStaticMesh(SphereVisualAsset.Object);
 		// SphereVisual->SetRelativeLocation(FVector(350.0f, 0.0f, 0.0f));
 		SphereVisual->SetRelativeRotation(FRotator(0.0f, 0.0f, 60.0f));
@@ -47,11 +47,12 @@ AEnemy::AEnemy()
 	}
 
 	EnemyCapsule = CreateDefaultSubobject<UCapsuleComponent>(TEXT("Enemy Capsule"));
-	EnemyCapsule->InitCapsuleSize(20, 50.f);
+	EnemyCapsule->InitCapsuleSize(30, 80.f);
+	EnemyCapsule->SetupAttachment(SphereVisual);
 	EnemyCapsule->SetRelativeLocation(FVector(0.0f, -21.0f, 15.0f));
 	EnemyCapsule->SetRelativeRotation(FRotator(-90.0f, -5.0f, -14.0f));
 	EnemyCapsule->SetCollisionProfileName(TEXT("Trigger"));
-	EnemyCapsule->SetupAttachment(SphereVisual);
+	
 
 	EnemyCapsule->OnComponentBeginOverlap.AddDynamic(this, &AEnemy::OnOverlapBegin);
 }
